@@ -1,0 +1,33 @@
+{
+  "base_model": "Qwen/Qwen3.8-27B",
+  "checkpoint_step": 300,
+  "planned_optimizer_steps": 1742,
+  "training_continues": true,
+  "fresh_base_lora": true,
+  "public_rows": 12000,
+  "distilled_rows": 645,
+  "distilled_source_counts": [
+    38,
+    200,
+    407
+  ],
+  "distilled_repetitions": 3,
+  "effective_rows": 13935,
+  "nonempty_reasoning_samples": 621,
+  "excluded_missing_answer_rows": 1,
+  "epochs": 1,
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.05,
+  "learning_rate": 5e-05,
+  "scheduler": "cosine",
+  "warmup_ratio": 0.03,
+  "per_device_batch_size": 1,
+  "gradient_accumulation_steps": 8,
+  "max_length": 4608,
+  "maximum_observed_tokens": 4457,
+  "preserve_thinking": true,
+  "ignore_empty_think": true,
+  "dtype": "bfloat16",
+  "evaluation_performed": false
+}

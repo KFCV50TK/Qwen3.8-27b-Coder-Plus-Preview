@@ -1,0 +1,6 @@
+*.safetensors
+*.part*
+*.download
+*.assembling
+.download-parts/
+__pycache__/

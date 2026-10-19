@@ -1,0 +1,7 @@
+Qwen3.8-27b-Coder-Plus-Preview
+Derived from Qwen/Qwen3.8-27B. The upstream Apache License 2.0 is retained.
+Upstream: https://huggingface.co/Qwen/Qwen3.8-27B
+Community modification: merge of code LoRA checkpoint 300 (496 updates), 2026-10-20.
+Original tokenizer, processor and model configuration are retained.
+This preview is not affiliated with or endorsed by the upstream Qwen project.
+No benchmark claims are made for the modified model.
