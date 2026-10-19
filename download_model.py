@@ -4,11 +4,13 @@ import hashlib
 import json
 import os
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 REPOSITORY = 'KFCV50TK/Qwen3.8-27b-Coder-Plus-Preview'
 TAG = 'checkpoint-300-preview'
+RELEASE_BASE = f'https://github.com/{REPOSITORY}/releases/download/{TAG}/'
 
 
 def open_url(url):
@@ -48,11 +50,17 @@ def main():
     args = parser.parse_args()
     root = args.output.resolve()
     root.mkdir(parents=True, exist_ok=True)
-    with open_url('https://api.github.com/repos/'+REPOSITORY+'/releases/tags/'+TAG) as response:
-        release = json.load(response)
-    assets = {asset['name']:asset['browser_download_url'] for asset in release['assets']}
-    with open_url(assets['release-manifest.json']) as response:
+    with open_url(RELEASE_BASE+'release-manifest.json') as response:
         manifest = json.load(response)
+    if manifest.get('checkpoint_step') != 300:
+        raise ValueError('Unexpected checkpoint in release manifest')
+    assets = {}
+    for item in manifest['files']:
+        for part in item['parts']:
+            name = part['asset']
+            if Path(name).name != name or name in assets:
+                raise ValueError('Unsafe or duplicate release asset name')
+            assets[name] = RELEASE_BASE+urllib.parse.quote(name, safe='')
     for item in manifest['files']:
         is_adapter = item['path'].startswith('adapter/')
         if is_adapter != args.adapter_only:
